@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- * CSS BOOTSTRAP -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- * MY CSS STYLE -->
+    <link rel="stylesheet" href="css/mystyle.css">
+    
+    <!-- * bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    
+    <!-- js bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <!-- * vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/vue-emoji-picker/dist/vue-emoji-picker.js"></script>
+    
+    <!-- * font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" >
+    <title>Boolzap</title>
+</head>
+
+<body>
+    <main id="app">
+        
+        <section class="position-relative" @keyup.enter="getInput(inputMessage)">
+            
+            <!-- & top green bg -->
+            <section class="my-top-background">
+                
+            </section>
+            
+            <!-- & main content pos-abs-->
+            <section class="container-fluid my-main-content-position position-absolute">
+                
+                <!-- row -->
+                <div class="row justify-content-center">
+                    <!-- ! COL-12(wrap col) WRAPPER(BG DA ELIMINARE) POS ABSOLUTE MODIFICARE TOP -->
+                    <div class="col-12 my-main-content-wrapper d-flex justify-content-center">
+                        
+                        <!-- # LEFT CONTENT -->
+                        <div class="col-4 d-flex flex-column my-main-content-left ">
+                            <!-- %FIRST CONTACT -->
+                            <div class="my-contact-wrapper my-selected-contact-wrapper selected-gray d-flex justify-content-between px-2 py-3">
+                                <div class="my-contact-left d-flex">
+                                    <div class="my-pic-bg me-2">
+                                        <img src="img/avatar_io.jpg" alt="foto">
+                                    </div>
+                                    <h5 class="contact-name">Sofia</h5>
+                                </div>
+                                
+                                <div class="my-contact-right">
+                                    <i class="bi bi-arrow-clockwise fs-4 icon-grey"></i>
+                                    <i class="bi bi-chat-left-fill fs-4 icon-grey"></i>
+                                    <i class="bi bi-three-dots-vertical fs-4 icon-grey"></i>
+                                </div>
+                            </div>
+                            
+                            <!--% ALERT OPTIONS -->
+                            <div class="my-message-alert-wrapper selected d-flex">
+                                <div class="bell-icon-bg me-2">
+                                    <i class="bi bi-bell-slash-fill"></i>
+                                </div>
+                                <div class="text-alert-wrap">
+                                    <p class="m-0 my-alert">Ricevi notifiche di nuovi messaggi</p>
+                                    <p class="m-0 my-alert-active-msg"><a href="#/">Attiva notifiche</a></p>
+                                </div>
+                            </div>
+                            
+                            <!--% SEARCH  -->
+                            <div class="my-search-box-wrapper d-flex">
+                                <i class="bi bi-search icon-grey"></i>
+                                <input v-model="inputContact" type="search" placeholder="Search" class="my-search-bar">
+                            </div>
+                            
+                            <!--% list contact/chat -->
+                            <div class="container-list-contacts overflow-auto">
+                                <ul class="list-unstyled">
+                                    <li @click="getActiveClick(index)" :class="(index == activeClick)? 'selected-gray' : ' ' "  v-for="(contact,index) in  checkSearchContact">
+                                        <div class="my-contact-wrapper d-flex justify-content-between">
+                                            <div class="my-contact-left d-flex">
+                                                <div class="my-pic-bg me-2">
+                                                    <img :src="'img/' + contact.image" alt="foto">
+                                                </div>
+                                                <div class="my-contact-text">
+                                                    <h6 class="fw-bolder m-0">{{contact.name}}</h6>
+                                                    <p class="m-0 my-last-msg">Ultimo messaggio</p>
+                                                    <!-- <p  v-for="(msg,indexMsg) in contact.messages" class="m-0 my-time align-self-end">{{msg.date}}</p> -->
+                                                    <p class="m-0 my-time align-self-end">{{contact.messages[contact.messages.length - 1].date}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- # RIGHT CONTENT  -->
+                        <div class="col-6 my-main-content-right d-flex flex-column justify-content-between">
+                            
+                            <!-- % selcted contact/chat from left-content -->
+                            <div v-if="(index == activeClick)"  v-for="(contact,index) in  checkSearchContact" class="my-contact-wrapper d-flex justify-content-between px-2 py-3 selected-gray">
+                                <div class="my-contact-left d-flex">
+                                    <div class="my-pic-bg me-2">
+                                        <img :src="'img/' + contact.image" alt="foto">
+                                    </div>
+                                    <h5>{{contact.name}}</h5>
+                                </div>
+                                
+                                <div class="my-contact-right">
+                                    <i class="bi bi-search fs-4 icon-grey"></i>
+                                    <i class="bi bi-paperclip fs-4 icon-grey"></i>
+                                    <i class="bi bi-three-dots-vertical fs-4 icon-grey"></i>
+                                </div>
+                            </div>
+                            
+                            <!-- !contanitore vuoto(modificare) solo se nessuna chat è selezionata -->
+                            <div v-else></div>
+                            
+                            <!-- %BOX MESSAGES -->
+                            <div class="my-box-chat overflow-auto ">    
+                                <div v-for="(msg,indexMsg) in checkSearchContact[activeClick].messages" class="my-container-message clearfix mb-1">
+                                    <div @click="getActiveMessage(indexMsg)" v-if="msg.status == 'sent' || msg.status == 'received' " :class="(msg.status == 'sent')? 'float-end my-msg-right' : 'float-start my-answer-msg-left' " class=" msg-box-style d-flex justify-content-between">
+                                        
+                                        <div class="d-flex flex-column my-message-text">
+                                            <p class="m-0">{{msg.message}}</p>
+                                            <p class="m-0 my-time align-self-end">{{msg.date}}</p>
+                                        </div>
+                                        
+                                        <div class="dropdown">
+                                            <i class="fs-5 my-dropdown-icon dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="#">Message info</a>
+                                                <a v-if="activeMessage == indexMsg" class="dropdown-item" @click="removeMessage(indexMsg)" href="#">Delete message</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- % search bar -->
+                            <div v-if="(index == activeClick)" v-for="(contact,index) in contacts" class="my-bottom-input-container d-flex flex-column">
+                                <div class="d-flex mb-2 justify-content-around ps-4">
+                                    <input type="text" class="w-75 position-relative" v-model="inputMessage"></input>
+                                    <i class="bi bi-mic-fill px-2 icon-grey"></i>
+                                </div>
+
+                                <div class="wrapper d-flex position-relative">
+                                    <emoji-picker @emoji="append" :search="search" >
+                                        <div
+                                            class="emoji-invoker"
+                                            slot="emoji-invoker"
+                                            slot-scope="{ events: { click: clickEvent } }"
+                                            @click.stop="clickEvent"
+                                        >
+                                            <i class="bi bi-emoji-smile px-2 icon-grey"></i>
+                                        </div>  
+                                        <div slot="emoji-picker" slot-scope="{ emojis, insert, display }">
+                                            <div class="emoji-picker">
+                                                <div class="emoji-picker__search">
+                                                    <input type="text" v-model="search" v-focus>
+                                                </div>
+                                                <div>
+                                                    <div v-for="(emojiGroup, category) in emojis" :key="category">
+                                                        <h5>{{ category }}</h5>
+                                                        <div class="emojis">
+                                                            <span
+                                                            v-for="(emoji, emojiName) in emojiGroup"
+                                                            :key="emojiName"
+                                                            @click="insert(emoji)"
+                                                            :title="emojiName"
+                                                            >{{ emoji }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </emoji-picker>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+        </section>
+    </main>
+    
+    
+    <!--javascript-->
+    <script type="text/javascript" src="js/myscript.js"></script>
+</body>
+</html>
+
+
+
+
+
+
