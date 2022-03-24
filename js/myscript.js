@@ -210,11 +210,7 @@ const app = new Vue ({
         getActiveClick(index){
             this.activeClick = index;
         },
-        
-        getActiveMessage(index){
-            this.activeMessage = index;
-        },
-
+    
         /**
          * 
          * Function that push an element into the array of object, if it's active.
