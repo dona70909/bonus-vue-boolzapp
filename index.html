@@ -77,30 +77,29 @@
                             <ul class="list-unstyled" >
                                 
                                 <li  @click="getActiveClick(index)" :class="(index == activeClick)? 'selected-gray' : ' ' "  v-for="(contact,index) in  contacts" v-if="contact.visible == true" >
-                                    <div class="my-contact-wrapper d-flex justify-content-between">
+                                    <div   class="my-contact-wrapper d-flex justify-content-between">
                                         <div class="my-contact-left d-flex">
                                             <div class="my-pic-bg me-2">
                                                 <img :src="'img/' + contact.image" alt="foto">
                                             </div>
                                             <div class="my-contact-text">
-                                                <h6 class="fw-bolder m-0 ">{{contact.name}} : {{contact.visible}}</h6>
+                                                <h6 class="fw-bolder m-0 ">{{contact.name}}</h6>
                                                 <p class="m-0 my-last-msg">Ultimo messaggio</p>
-                                                <!-- <p  v-for="(msg,indexMsg) in contact.messages" class="m-0 my-time align-self-end">{{msg.date}}</p> -->
-                                                <p  v-if="contact.messages.length > 0"  class="m-0 my-time align-self-end">{{contact.messages[contact.messages.length - 1].date}}</p>
-
-                                                <!--  <p v-else="contact.messages.length == 0">Non ci sono messaggi</p> -->
+                                                <p  v-if="contact.messages.length > 0"  class="m-0 my-time align-self-end">{{contact.messages[contact.messages.length - 1].date}}</p>                              
                                             </div>
-                                            
                                         </div>
                                     </div>
+
                                 </li>
 
+                                
+                                <li v-if="this.searchMatch.length == 0" class="p-1 text-center">
+                                    <p class="m-0">Non ci sono messaggi</p>
+                                </li>
+                               
+                                
                             </ul>
 
-                        </div>
-
-                        <div v-if="!getsearch(inputContact) && this.inputContact != '' ">
-                            <p>non ci sono messaggi</p>
                         </div>
                     </div>
                     

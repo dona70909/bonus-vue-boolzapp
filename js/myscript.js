@@ -34,17 +34,6 @@ const app = new Vue ({
                 image:"avatar_1.jpg",
                 
             },
-
-            {
-                name: 'senza messages',
-                avatar: '_1',
-                visible: true,
-                messages: [
-                ],
-                
-                image:"avatar_1.jpg",
-                
-            },
             {
                 name: 'Fabio',
                 avatar: '_2',
@@ -210,7 +199,7 @@ const app = new Vue ({
         inputMessage:"",
         inputContact:"",
         activeMessage:null,
-        
+        searchMatch: [],
     },
     
     methods: {
@@ -330,15 +319,20 @@ const app = new Vue ({
         },
 
         getsearch(input){
+
+            this.searchMatch = [];
             this.contacts.forEach((contact,index) => {
-                if(contact.name.toLowerCase().startsWith(input.toLowerCase())){
+                if(contact.name.toLowerCase().includes(input.toLowerCase())){
                     contact.visible = true;
-                    return true;
+                    this.searchMatch.push(contact.name);
+                    
                 } else {
                     contact.visible = false;
-                    return false;
+                   
                 }
-            })
+                
+                return this.searchMatch;
+            });
         }
 
     },
