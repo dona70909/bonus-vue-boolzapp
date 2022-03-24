@@ -327,7 +327,6 @@ const app = new Vue ({
                     
                 } else {
                     contact.visible = false;
-                   
                 }
                 
                 return this.searchMatch;
