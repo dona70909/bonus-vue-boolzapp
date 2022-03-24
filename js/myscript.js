@@ -203,7 +203,6 @@ const app = new Vue ({
     },
     
     methods: {
-
         /**
          * function that get the active element after an event and check if it's equal to the current one
          * @param {*} index index of the current element
